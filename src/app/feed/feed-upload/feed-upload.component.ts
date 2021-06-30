@@ -27,7 +27,6 @@ export class FeedUploadComponent implements OnInit {
   ngOnInit() {
     this.uploadForm = this.formBuilder.group({
       caption: new FormControl('', Validators.required),
-      filter: new FormControl('false'),
     });
   }
 
@@ -55,7 +54,7 @@ export class FeedUploadComponent implements OnInit {
     this.loadingController.create();
 
     if (!this.uploadForm.valid || !this.file) { return; }
-    this.feed.uploadFeedItem(this.uploadForm.controls.caption.value, this.uploadForm.controls.filter.value, this.file)
+    this.feed.uploadFeedItem(this.uploadForm.controls.caption.value, this.file)
       .then((result) => {
         this.modalController.dismiss();
         this.loadingController.dismiss();

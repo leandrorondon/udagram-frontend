@@ -3,9 +3,15 @@ import { HttpClient, HttpHeaders,  HttpErrorResponse, HttpRequest, HttpEvent } f
 import { environment } from '../../environments/environment';
 import { Observable } from 'rxjs';
 import { FeedItemUpload } from '../feed/models/feed-itemupload.model';
+import { FeedItem } from '../feed/models/feed-item.model';
 import { catchError, tap, map } from 'rxjs/operators';
 
 const API_HOST = environment.apiHost;
+
+export interface FeedUploadResponse {
+  item: FeedItem;
+  signed_url: string;
+}
 
 @Injectable({
   providedIn: 'root'
@@ -25,14 +31,13 @@ export class ApiService {
   }
 
   setAuthToken(token) {
-    this.httpOptions.headers = this.httpOptions.headers.append('Authorization', `jwt ${token}`);
+    this.httpOptions.headers = this.httpOptions.headers.set('Authorization', `jwt ${token}`);
     this.token = token;
   }
 
   get(endpoint): Promise<any> {
     const url = `${API_HOST}${endpoint}`;
     const req = this.http.get(url, this.httpOptions).pipe(map(this.extractData));
-
     return req
             .toPromise()
             .catch((e) => {
@@ -52,12 +57,10 @@ export class ApiService {
   }
 
   async upload(endpoint: string, file: File, payload: FeedItemUpload): Promise<any> {
-    const signed = await this.get(`${endpoint}/signed-url/${file.name}`);
-
-    payload.url = signed.file_name
-
+    const up = await this.post(endpoint, payload) as FeedUploadResponse
+    console.log('Got ', up)
     const headers = new HttpHeaders({'Content-Type': file.type});
-    const req = new HttpRequest( 'PUT', signed.url, file,
+    const req = new HttpRequest( 'PUT', up.signed_url, file,
                                   {
                                     headers: headers,
                                     reportProgress: true, // track progress
@@ -66,7 +69,7 @@ export class ApiService {
     return new Promise ( resolve => {
         this.http.request(req).subscribe((resp) => {
         if (resp && (<any> resp).status && (<any> resp).status === 200) {
-          resolve(this.post(endpoint, payload));
+          resolve(up.item);
         }
       });
     });
@@ -75,6 +78,7 @@ export class ApiService {
   /// Utilities
   private extractData(res: HttpEvent<any>) {
     const body = res;
+    console.log('body', body)
     return body || { };
   }
 }
