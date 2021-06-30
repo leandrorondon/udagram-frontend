@@ -1,12 +1,13 @@
 # Udagram Frontend
 
-This project is part of my Capstone Project for Udacity's Cloud Developer Nanodegree.
+This project is part of my Capstone Project for [Udacity's Cloud Developer Nanodegree](https://www.udacity.com/course/cloud-developer-nanodegree--nd9990).
 
-Udagram is a simple cloud application developed along side the Udacity Cloud Engineering Nanodegree. It allows users to register and log into a web client, post photos to the feed, and process photos using an image filtering microservice.
+Udagram is a simple cloud application developed along side the Udacity Cloud Engineering Nanodegree.
+It allows users to register and log into a web client and post photos to the feed.
 
 The project is split into two parts:
 1. This Frontend
-A basic Ionic client web application, bootstraped from [Udacity Simple Frontend](https://github.com/udacity/cloud-developer/tree/master/course-02/exercises/udacity-c2-frontend).
+A basic Ionic client web application, bootstrapped from [Udacity Simple Frontend](https://github.com/udacity/cloud-developer/tree/master/course-02/exercises/udacity-c2-frontend).
 2. [The Serverless API](https://github.com/leandrorondon/udagram-serverless-go), a serverless API running on AWS.
 
 ## Getting Setup
