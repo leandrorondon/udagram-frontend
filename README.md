@@ -6,8 +6,7 @@ Udagram is a simple cloud application developed along side the Udacity Cloud Eng
 It allows users to register and log into a web client and post photos to the feed.
 
 The project is split into two parts:
-1. This Frontend
-A basic Ionic client web application, bootstrapped from [Udacity Simple Frontend](https://github.com/udacity/cloud-developer/tree/master/course-02/exercises/udacity-c2-frontend).
+1. This Frontend: A basic Ionic client web application, bootstrapped from [Udacity Simple Frontend](https://github.com/udacity/cloud-developer/tree/master/course-02/exercises/udacity-c2-frontend).
 2. [The Serverless API](https://github.com/leandrorondon/udagram-serverless-go), a serverless API running on AWS.
 
 ## Getting Setup
